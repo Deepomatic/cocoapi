@@ -89,7 +89,7 @@ class COCO:
 
     def createIndex(self):
         # create index
-        print('creating index...')
+        # print('creating index...')
         anns, cats, imgs = {}, {}, {}
         imgToAnns,catToImgs = defaultdict(list),defaultdict(list)
         if 'annotations' in self.dataset:
@@ -109,7 +109,7 @@ class COCO:
             for ann in self.dataset['annotations']:
                 catToImgs[ann['category_id']].append(ann['image_id'])
 
-        print('index created!')
+        # print('index created!')
 
         # create class members
         self.anns = anns
