@@ -74,7 +74,7 @@ class COCOeval:
         self._dts = defaultdict(list)       # dt for evaluation
         self.params = Params(iouType=iouType) # parameters
         self._paramsEval = {}               # parameters for evaluation
-        self.stats = []                     # result summarization
+        self.stats = OrderedDict()          # result summarization
         self.ious = {}                      # ious between all gts and dts
         if not cocoGt is None:
             self.params.imgIds = sorted(cocoGt.getImgIds())
@@ -459,10 +459,9 @@ class COCOeval:
         if not self.eval:
             raise Exception('Please run accumulate() first')
 
-        stats = np.zeros((len(self.params.summary_config, )))
-        for i, value in enumerate(self.params.summary_config.values()):
-            stats[i] = self._summarize(**value)
-        self.stats = stats
+        self.stats = OrderedDict()
+        for key, value in self.params.summary_config.items():
+            self.stats[key] = self._summarize(**value)
 
     def __str__(self):
         self.summarize()
